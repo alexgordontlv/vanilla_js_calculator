@@ -1,0 +1,39 @@
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 500px;
+}
+
+.calculator {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	max-width: 500px;
+	height: 300px;
+	border-radius: 5px;
+	background: teal;
+}
+input {
+	height: 50px;
+}
+select {
+	height: 50px;
+}
+.cell {
+	border: 2px solid black;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 50px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.result {
+	width: 300px;
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+	margin-top: 10px;
+}
