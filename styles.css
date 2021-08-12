@@ -1,12 +1,19 @@
 body {
 	display: flex;
+	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
 	height: 500px;
 }
-
+.radiolist{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	margin-top: 10px;
+}
 .calculator {
 	display: flex;
+	margin: 10px;
 	justify-content: center;
 	flex-wrap: wrap;
 	max-width: 500px;
@@ -14,22 +21,13 @@ body {
 	border-radius: 5px;
 	background: teal;
 }
-input {
+input ,button,select{
 	height: 50px;
+	margin: 3px;
 }
-select {
-	height: 50px;
+.number-input{
+	width:100px;
 }
-.cell {
-	border: 2px solid black;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-size: 50px;
-	font-weight: bold;
-	cursor: pointer;
-}
-
 .result {
 	width: 300px;
 	text-align: center;
