@@ -1,17 +1,19 @@
 class View {
-	constructor() {
-		this.calculatorTypes = ['standart','scientific','programmer']
+	constructor(baseOperations) {
+		this.calculatorTypes = Object.values(CALCULATOR_TYPE);
 		this.submitButton = document.createElement('button');
 		this.submitButton.textContent = 'Submit';
 		this.inputA = document.createElement('input');
 		this.select = document.createElement('select');
-	
 		this.inputB = document.createElement('input');
 		this.calculator = document.createElement('div');
 		this.result = document.createElement('div');
 		this.calculatorFunctions = document.createElement('div');
 		this.radioInputForm = document.createElement('form');
-		this.radioInputForm.className = 'radiolist'
+		this.radioInputForm.className = 'radiolist';
+		this.oldOperations = [];
+		this.baseOperations = baseOperations;
+		this.flagOnce = true;
 	}
 
 	bindEventClick = (callbackHandler) => {
@@ -21,29 +23,36 @@ class View {
 		});
 	};
 
-
-	renderOptions(operations){
-		while (this.select.hasChildNodes()) {
-			this.select.removeChild(this.select.lastChild);
-			}
-			operations.forEach((element) => {
+	renderOptions(newOperations) {
+		console.log(newOperations.length, this.oldOperations.length);
+		if (this.oldOperations.length !== this.baseOperations.length) {
+			this.oldOperations.forEach((op) => {
+				console.log('removing ' + this.select.lastChild.value);
+				this.select.removeChild(this.select.lastChild);
+			});
+		}
+		if (newOperations.length !== this.baseOperations.length || this.flagOnce) {
+			this.flagOnce = false;
+			newOperations.forEach((element) => {
 				const opt = document.createElement('option');
-				opt.value = element;
-				opt.text = element;
+				opt.value = element.name;
+				opt.text = element.sign;
 				this.select.add(opt, null);
 			});
+		}
+		this.oldOperations = newOperations;
 	}
 
 	render() {
-		this.calculatorTypes.forEach(type=>{
+		this.calculatorTypes.forEach((type) => {
 			const radioInput = document.createElement('input');
-			radioInput.setAttribute('type','radio')
-			radioInput.setAttribute('name','radio')
-			radioInput.setAttribute('value',type)
+			radioInput.setAttribute('type', 'radio');
+			radioInput.setAttribute('name', 'radio');
+			radioInput.setAttribute('value', type);
 			const radioLabel = document.createElement('label');
-			radioLabel.innerHTML = type
-			this.radioInputForm.append(radioInput,radioLabel)
-		})
+			radioLabel.innerHTML = type;
+			this.radioInputForm.append(radioInput, radioLabel);
+		});
 		this.calculator.className = 'calculator';
 		this.result.className = 'result';
 
@@ -56,8 +65,7 @@ class View {
 		this.inputB.setAttribute('class', 'number-input');
 
 		this.calculatorFunctions.append(this.inputA, this.select, this.inputB, this.submitButton, this.result);
-		this.calculator.append(this.radioInputForm,this.calculatorFunctions)
+		this.calculator.append(this.radioInputForm, this.calculatorFunctions);
 		document.body.append(this.calculator);
 	}
-
 }

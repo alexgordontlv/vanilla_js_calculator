@@ -1,26 +1,20 @@
+const { SUM, SUBSTRACT, DEVIDE, MULTIPLY, MODULU, ROOT, POWER } = mathOps;
+const { SCIENTIFIC, STANDARD, PROGRAMMER } = CALCULATOR_TYPE;
+
 class Calculator {
 	constructor(calculatorType) {
-		this.operations = ['+', '-', '*', '/'];
-		if(calculatorType === 'scientific'){
-			this.operations = [...this.operations,'x^y','x-root-y']
+		console.log(mathOps);
+		this.operations = [SUM, SUBSTRACT, MULTIPLY, DEVIDE];
+		if (calculatorType === SCIENTIFIC) {
+			this.operations = [POWER, ROOT];
+		} else if (calculatorType === PROGRAMMER) {
+			this.operations = [MODULU];
 		}
-		else if(calculatorType === 'programmer'){
-			this.operations = [...this.operations,'x-mod-y']
-		}
-		
 	}
 
-	mathOps = {
-		'+': (a, b) => a + b,
-		'-': (a, b) => a - b,
-		'*': (a, b) => a * b,
-		'/': (a, b) => a / b,
-		'x^y': (a, b) => Math.pow(a,b),
-		'x-root-y': (a, b) => Math.pow(b,1/a),
-		'x-mod-y': (a, b) =>a % b
-	};
-
-	calc = (value1, value2, operation) => {
-		return this.mathOps[operation](+value1, +value2);
+	calculate = (value1, value2, operation) => {
+		console.log(value1, value2, operation);
+		if ((value2 == 0 && operation === DEVIDE.name) || (value2 < 0 && operation === ROOT.name)) return mathOps.NOT_LEGAL_OPERATION;
+		return mathOps[operation].exec(+value1, +value2);
 	};
 }
